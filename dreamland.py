@@ -7,7 +7,7 @@ class FastFetch:
 
     def __place_to_front(self, key):
         idx = self.pos.index(key)
-        self.pos.idx.pop(idx)
+        self.pos.pop(idx)
         self.pos.insert(0, key)
 
     def __competitor_joined(self, key, value):
