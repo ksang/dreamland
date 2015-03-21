@@ -1,5 +1,6 @@
 import unittest
 import random
+import time
 from dreamland import FastFetch
 
 class TestFastFetch(unittest.TestCase):
@@ -33,3 +34,19 @@ class TestFastFetch(unittest.TestCase):
         print "After vitalize, size:%s, gate:%s" %(10,5)
         stack.vitalize()
         self.print_status(stack)
+
+    def test_c_big_land(self):
+        start = time.time()
+        stack = FastFetch(100000,50000)
+        for i in range(0,150000):
+            (a,b) = (random.randrange(0,100000), random.randrange(0,100000))
+            stack.touch((a,b), "Value")
+        print "Insert complete, time used: %s checking correstness:" % str(time.time() - start)
+        print "DATA_STORE size: %s position list size: %s" %(len(stack.DATA_STORE), len(stack.pos))
+        for key in stack.pos:
+            if stack.DATA_STORE.get(key) is None:
+                print "Inconsistant: %s" % key
+        start2 = time.time()
+        stack.vitalize()
+        print "Vitalize complete, time used: %s" % str(time.time() - start2)
+        print "DATA_STORE size: %s position list size: %s" %(len(stack.DATA_STORE), len(stack.pos))

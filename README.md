@@ -54,16 +54,18 @@ A key value memory cache structure to provide data access functionality.
 
     ins1(PyListObject *self, Py_ssize_t where, PyObject *v)
     {
+        ...
         n = Py_SIZE(self);
         for (i = n; --i >= where; )
             items[i+1] = items[i];
         Py_INCREF(v);
         items[where] = v;
+        ...
     }
 
-Concluson:
+Summary:
     To optimize get() speed, we implemented two approaches:
-    1. Instead of place the most recent used element to the front of position list, we place it in the end. This is because listappend is far more cheap than listinsert of the insert position is in head.
+    1. Instead of place the most recent used element to the front of position list, we place it in the end. This is because listappend is far more cheap than listinsert if the insert position is in head.
     2. Introduce 'gate' setting to scan only part of the position list, elements inside gate are safe and we don't care how recent they are visited, outside elements are scanned and place to end of list if visited.
 
 
@@ -80,7 +82,7 @@ Concluson:
     object.h: 
     #define Py_SIZE(ob)     (((PyVarObject*)(ob))->ob_size)
 
-Concluson:
+Summary:
     The time complexity of touch() method depends on if the operation is insert or update.
     update is get() + python dictobject update value time(constant)
     insert is python dictobject new value time + list constant time operations.
