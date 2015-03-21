@@ -28,7 +28,7 @@ A key value memory cache structure to provide data access functionality.
     }
 
     By setting the gate value, we can limit the complexity of this opertion.
-    which means we only scan the elements from index 0 to gate in the list.
+    which means we only scan the elements outside of the gate in list.
 
 **3. list.pop()**
     - constant time

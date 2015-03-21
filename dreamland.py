@@ -12,8 +12,11 @@ class FastFetch:
             self.DATA_STORE.pop(dust)
 
     def __place_to_end(self, key):
+        d = len(self.pos) - 1 - self.gate
+        if d < 0:
+            return
         try:
-            i = self.pos.index(key, 0, len(self.pos)-1 - self.gate)
+            i = self.pos.index(key, 0, d)
         except ValueError:
             return
         else:
