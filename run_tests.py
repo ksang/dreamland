@@ -3,9 +3,12 @@ import sys, types
 import unittest
 
 from tests.fastfetch import TestFastFetch
+from tests.lrucache import TestLRUCache
 
-test_cases = [  TestFastFetch,
-                ]
+test_cases = [  
+                TestFastFetch,
+                TestLRUCache
+            ]
 
 class Tester:
 
@@ -23,7 +26,7 @@ def print_usage():
     for ctest in test_cases:
         classes.append(str(ctest).split('.')[-1:][0][:-2])
     print '''
-    Usage:      run_tests.py <test_case_1> <test_cases_2> ...
+    Usage:      run_tests.py [all|<test_case_1> <test_cases_2> ...]
     Test cases: 
                 %s
     ''' % str(classes)
@@ -47,7 +50,10 @@ def parse_argv(argv):
 if __name__ == "__main__":
     use_cases = []
     if len(sys.argv) > 1:
-        use_cases = parse_argv(sys.argv[1:])
+        if sys.argv[1] == 'all':
+            use_cases = test_cases
+        else:
+            use_cases = parse_argv(sys.argv[1:])
     else:
         print_usage()
     tester = Tester(use_cases)

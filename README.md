@@ -5,6 +5,11 @@ A key value memory cache structure to provide data access functionality.
 
 ##Speed analysis:
 
+###class LRUCache
+
+    Based on doubly-linked list to store key-value pair, dict is used for mapping key to the object.
+    get()/set() operations are both in O(1) time.
+
 ###class FastFetch
 
 ####get():

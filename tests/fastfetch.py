@@ -5,7 +5,8 @@ from dreamland import FastFetch
 
 class TestFastFetch(unittest.TestCase):
     def setUp(self):
-        pass
+        print '\n'
+        print '='*64
 
     def print_status(self, stack):
         print str(stack.DATA_STORE)
@@ -50,3 +51,6 @@ class TestFastFetch(unittest.TestCase):
         stack.vitalize()
         print "Vitalize complete, time used: %s" % str(time.time() - start2)
         print "DATA_STORE size: %s position list size: %s" %(len(stack.DATA_STORE), len(stack.pos))
+
+    def tearDown(self):
+        print '='*64
